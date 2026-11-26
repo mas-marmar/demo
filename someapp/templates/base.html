@@ -107,6 +107,35 @@
             justify-content: center;
             color: #aaa;
         }
+        /* Включаем переходы между страницами */
+        @view-transition {
+            navigation: auto;
+        }
+
+        /* Настройка анимации ухода старой страницы (сдвиг влево + исчезновение) */
+        ::view-transition-old(root) {
+            animation: 0.3s ease-in both slide-out;
+        }
+
+        /* Настройка анимации появления новой страницы (въезд справа) */
+        ::view-transition-new(root) {
+            animation: 0.3s ease-out both slide-in;
+        }
+
+        /* Ключевые кадры для анимаций */
+        @keyframes slide-out {
+            to {
+                transform: translateX(-30%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateX(30%);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
