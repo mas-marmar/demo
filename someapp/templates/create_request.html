@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Оставить заявку на курс</h2>
+    
+    <form method="post" style="max-width: 400px;">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div style="color: red; margin-bottom: 10px;">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        {% for field in form %}
+            <div style="margin-bottom: 15px;">
+                <label for="{{ field.id_for_label }}" style="display: block; margin-bottom: 5px; font-weight: bold;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: red; font-size: 14px;">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" style="width: 100%; margin-top: 10px;">Отправить заявку</button>
+    </form>
+
+    <p style="margin-top: 20px;">
+        <a href="{% url 'profile' %}" style="color: #3498db; text-decoration: none;">&larr; Вернуться в личный кабинет</a>
+    </p>
+{% endblock %}

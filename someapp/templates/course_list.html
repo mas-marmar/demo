@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Наши курсы</h2>
+<div class="courses-grid">
+    {% for course in courses %}
+        <div class="course-card">
+            {% if course.image %}
+                <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
+            {% else %}
+                <div class="course-image" style="background:#eee; display:flex; align-items:center; justify-content:center; color:#aaa;">Нет фото</div>
+            {% endif %}
+            <h3 style="margin: 0 0 10px 0; font-size: 18px;">{{ course.title }}</h3>
+            <p style="margin: 5px 0; color: #666;">Цена: <b>{{ course.price }} руб.</b></p>
+            <p style="margin: 5px 0; color: #666;">Длительность: {{ course.duration }}</p>
+        </div>
+    {% empty %}
+        <p>Курсов пока нет.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&larr; Назад</a>
+    {% endif %}
+    <span style="margin: 0 15px; color: #666;">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Вперед &rarr;</a>
+    {% endif %}
+</div>
+{% endblock %}

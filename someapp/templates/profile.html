@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Личный кабинет</h2>
+<p><a href="{% url 'create_request' %}" style="color: #3498db; font-weight: bold; text-decoration: none;">+ Создать новую заявку</a></p>
+<hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+<h3>Мои заявки:</h3>
+<ul style="list-style-type: none; padding: 0;">
+    {% for req in requests %}
+        <li style="background: #f1f8ff; padding: 15px; border-radius: 4px; margin-bottom: 10px; border-left: 4px solid #3498db; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(5px)'" onmouseout="this.style.transform='translateX(0)'">
+            <b>{{ req.course.title }}</b> — <span style="color: #e67e22;">{{ req.get_status_display }}</span> 
+            <span style="float: right; color: #888; font-size: 14px;">{{ req.created_at|date:"d.m.Y H:i" }}</span>
+        </li>
+    {% empty %}
+        <li style="color: #888;">У вас пока нет заявок.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
